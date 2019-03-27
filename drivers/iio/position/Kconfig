@@ -1,0 +1,16 @@
+#
+# Optical tracker sensors
+#
+# When adding new entries keep the list in alphabetical order
+
+menu "Optical tracker sensors"
+
+config PAT9125
+	tristate "Optical tracker PAT9125 I2C driver"
+	depends on I2C
+	select IIO_BUFFER
+	help
+	  Say yes here to build support for PAT9125 optical tracker
+	  sensors.
+
+endmenu
