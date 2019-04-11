@@ -26,3 +26,12 @@
 		opp-supported-hw = <0x06 0x0100>;
 	};
 };
+
+&i2c2 {
+	pat9125@75 {
+		compatible = "pixart,pat9125";
+		reg = <0x75>;
+		interrupt-parent = <&gpio1>;
+		interrupts = <19 IRQ_TYPE_EDGE_FALLING>;
+	};
+};
