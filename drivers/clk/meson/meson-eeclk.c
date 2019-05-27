@@ -4,13 +4,13 @@
  * Author: Jerome Brunet <jbrunet@baylibre.com>
  */
 
+#include <linux/clk.h>
 #include <linux/clk-provider.h>
 #include <linux/of_device.h>
 #include <linux/platform_device.h>
 #include <linux/mfd/syscon.h>
 #include <linux/regmap.h>
 
-#include "clk-input.h"
 #include "clk-regmap.h"
 #include "meson-eeclk.h"
 
@@ -18,7 +18,7 @@ int meson_eeclkc_probe(struct platform_device *pdev)
 {
 	const struct meson_eeclkc_data *data;
 	struct device *dev = &pdev->dev;
-	struct clk_hw *input;
+	struct clk *input;
 	struct regmap *map;
 	int ret, i;
 
@@ -34,7 +34,8 @@ int meson_eeclkc_probe(struct platform_device *pdev)
 		return PTR_ERR(map);
 	}
 
-	input = meson_clk_hw_register_input(dev, "xtal", IN_PREFIX "xtal", 0);
+	/* Check if xtal exist before register other clocks */
+	input = devm_clk_get(dev, "xtal");
 	if (IS_ERR(input)) {
 		ret = PTR_ERR(input);
 		if (ret != -EPROBE_DEFER)
