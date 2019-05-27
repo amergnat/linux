@@ -1097,56 +1097,56 @@ static struct clk_regmap axg_gen_clk = {
 };
 
 /* Everything Else (EE) domain gates */
-static MESON_GATE(axg_ddr, HHI_GCLK_MPEG0, 0);
-static MESON_GATE(axg_audio_locker, HHI_GCLK_MPEG0, 2);
-static MESON_GATE(axg_mipi_dsi_host, HHI_GCLK_MPEG0, 3);
-static MESON_GATE(axg_isa, HHI_GCLK_MPEG0, 5);
-static MESON_GATE(axg_pl301, HHI_GCLK_MPEG0, 6);
-static MESON_GATE(axg_periphs, HHI_GCLK_MPEG0, 7);
-static MESON_GATE(axg_spicc_0, HHI_GCLK_MPEG0, 8);
-static MESON_GATE(axg_i2c, HHI_GCLK_MPEG0, 9);
-static MESON_GATE(axg_rng0, HHI_GCLK_MPEG0, 12);
-static MESON_GATE(axg_uart0, HHI_GCLK_MPEG0, 13);
-static MESON_GATE(axg_mipi_dsi_phy, HHI_GCLK_MPEG0, 14);
-static MESON_GATE(axg_spicc_1, HHI_GCLK_MPEG0, 15);
-static MESON_GATE(axg_pcie_a, HHI_GCLK_MPEG0, 16);
-static MESON_GATE(axg_pcie_b, HHI_GCLK_MPEG0, 17);
-static MESON_GATE(axg_hiu_reg, HHI_GCLK_MPEG0, 19);
-static MESON_GATE(axg_assist_misc, HHI_GCLK_MPEG0, 23);
-static MESON_GATE(axg_emmc_b, HHI_GCLK_MPEG0, 25);
-static MESON_GATE(axg_emmc_c, HHI_GCLK_MPEG0, 26);
-static MESON_GATE(axg_dma, HHI_GCLK_MPEG0, 27);
-static MESON_GATE(axg_spi, HHI_GCLK_MPEG0, 30);
+static MESON_GATE(axg_ddr, HHI_GCLK_MPEG0, 0, axg_clk81);
+static MESON_GATE(axg_audio_locker, HHI_GCLK_MPEG0, 2, axg_clk81);
+static MESON_GATE(axg_mipi_dsi_host, HHI_GCLK_MPEG0, 3, axg_clk81);
+static MESON_GATE(axg_isa, HHI_GCLK_MPEG0, 5, axg_clk81);
+static MESON_GATE(axg_pl301, HHI_GCLK_MPEG0, 6, axg_clk81);
+static MESON_GATE(axg_periphs, HHI_GCLK_MPEG0, 7, axg_clk81);
+static MESON_GATE(axg_spicc_0, HHI_GCLK_MPEG0, 8, axg_clk81);
+static MESON_GATE(axg_i2c, HHI_GCLK_MPEG0, 9, axg_clk81);
+static MESON_GATE(axg_rng0, HHI_GCLK_MPEG0, 12, axg_clk81);
+static MESON_GATE(axg_uart0, HHI_GCLK_MPEG0, 13, axg_clk81);
+static MESON_GATE(axg_mipi_dsi_phy, HHI_GCLK_MPEG0, 14, axg_clk81);
+static MESON_GATE(axg_spicc_1, HHI_GCLK_MPEG0, 15, axg_clk81);
+static MESON_GATE(axg_pcie_a, HHI_GCLK_MPEG0, 16, axg_clk81);
+static MESON_GATE(axg_pcie_b, HHI_GCLK_MPEG0, 17, axg_clk81);
+static MESON_GATE(axg_hiu_reg, HHI_GCLK_MPEG0, 19, axg_clk81);
+static MESON_GATE(axg_assist_misc, HHI_GCLK_MPEG0, 23, axg_clk81);
+static MESON_GATE(axg_emmc_b, HHI_GCLK_MPEG0, 25, axg_clk81);
+static MESON_GATE(axg_emmc_c, HHI_GCLK_MPEG0, 26, axg_clk81);
+static MESON_GATE(axg_dma, HHI_GCLK_MPEG0, 27, axg_clk81);
+static MESON_GATE(axg_spi, HHI_GCLK_MPEG0, 30, axg_clk81);
 
-static MESON_GATE(axg_audio, HHI_GCLK_MPEG1, 0);
-static MESON_GATE(axg_eth_core, HHI_GCLK_MPEG1, 3);
-static MESON_GATE(axg_uart1, HHI_GCLK_MPEG1, 16);
-static MESON_GATE(axg_g2d, HHI_GCLK_MPEG1, 20);
-static MESON_GATE(axg_usb0, HHI_GCLK_MPEG1, 21);
-static MESON_GATE(axg_usb1, HHI_GCLK_MPEG1, 22);
-static MESON_GATE(axg_reset, HHI_GCLK_MPEG1, 23);
-static MESON_GATE(axg_usb_general, HHI_GCLK_MPEG1, 26);
-static MESON_GATE(axg_ahb_arb0, HHI_GCLK_MPEG1, 29);
-static MESON_GATE(axg_efuse, HHI_GCLK_MPEG1, 30);
-static MESON_GATE(axg_boot_rom, HHI_GCLK_MPEG1, 31);
+static MESON_GATE(axg_audio, HHI_GCLK_MPEG1, 0, axg_clk81);
+static MESON_GATE(axg_eth_core, HHI_GCLK_MPEG1, 3, axg_clk81);
+static MESON_GATE(axg_uart1, HHI_GCLK_MPEG1, 16, axg_clk81);
+static MESON_GATE(axg_g2d, HHI_GCLK_MPEG1, 20, axg_clk81);
+static MESON_GATE(axg_usb0, HHI_GCLK_MPEG1, 21, axg_clk81);
+static MESON_GATE(axg_usb1, HHI_GCLK_MPEG1, 22, axg_clk81);
+static MESON_GATE(axg_reset, HHI_GCLK_MPEG1, 23, axg_clk81);
+static MESON_GATE(axg_usb_general, HHI_GCLK_MPEG1, 26, axg_clk81);
+static MESON_GATE(axg_ahb_arb0, HHI_GCLK_MPEG1, 29, axg_clk81);
+static MESON_GATE(axg_efuse, HHI_GCLK_MPEG1, 30, axg_clk81);
+static MESON_GATE(axg_boot_rom, HHI_GCLK_MPEG1, 31, axg_clk81);
 
-static MESON_GATE(axg_ahb_data_bus, HHI_GCLK_MPEG2, 1);
-static MESON_GATE(axg_ahb_ctrl_bus, HHI_GCLK_MPEG2, 2);
-static MESON_GATE(axg_usb1_to_ddr, HHI_GCLK_MPEG2, 8);
-static MESON_GATE(axg_usb0_to_ddr, HHI_GCLK_MPEG2, 9);
-static MESON_GATE(axg_mmc_pclk, HHI_GCLK_MPEG2, 11);
-static MESON_GATE(axg_vpu_intr, HHI_GCLK_MPEG2, 25);
-static MESON_GATE(axg_sec_ahb_ahb3_bridge, HHI_GCLK_MPEG2, 26);
-static MESON_GATE(axg_gic, HHI_GCLK_MPEG2, 30);
-static MESON_GATE(axg_mipi_enable, HHI_MIPI_CNTL0, 29);
+static MESON_GATE(axg_ahb_data_bus, HHI_GCLK_MPEG2, 1, axg_clk81);
+static MESON_GATE(axg_ahb_ctrl_bus, HHI_GCLK_MPEG2, 2, axg_clk81);
+static MESON_GATE(axg_usb1_to_ddr, HHI_GCLK_MPEG2, 8, axg_clk81);
+static MESON_GATE(axg_usb0_to_ddr, HHI_GCLK_MPEG2, 9, axg_clk81);
+static MESON_GATE(axg_mmc_pclk, HHI_GCLK_MPEG2, 11, axg_clk81);
+static MESON_GATE(axg_vpu_intr, HHI_GCLK_MPEG2, 25, axg_clk81);
+static MESON_GATE(axg_sec_ahb_ahb3_bridge, HHI_GCLK_MPEG2, 26, axg_clk81);
+static MESON_GATE(axg_gic, HHI_GCLK_MPEG2, 30, axg_clk81);
+static MESON_GATE(axg_mipi_enable, HHI_MIPI_CNTL0, 29, axg_clk81);
 
 /* Always On (AO) domain gates */
 
-static MESON_GATE(axg_ao_media_cpu, HHI_GCLK_AO, 0);
-static MESON_GATE(axg_ao_ahb_sram, HHI_GCLK_AO, 1);
-static MESON_GATE(axg_ao_ahb_bus, HHI_GCLK_AO, 2);
-static MESON_GATE(axg_ao_iface, HHI_GCLK_AO, 3);
-static MESON_GATE(axg_ao_i2c, HHI_GCLK_AO, 4);
+static MESON_GATE(axg_ao_media_cpu, HHI_GCLK_AO, 0, axg_clk81);
+static MESON_GATE(axg_ao_ahb_sram, HHI_GCLK_AO, 1, axg_clk81);
+static MESON_GATE(axg_ao_ahb_bus, HHI_GCLK_AO, 2, axg_clk81);
+static MESON_GATE(axg_ao_iface, HHI_GCLK_AO, 3, axg_clk81);
+static MESON_GATE(axg_ao_i2c, HHI_GCLK_AO, 4, axg_clk81);
 
 /* Array of all clocks provided by this provider */
 
