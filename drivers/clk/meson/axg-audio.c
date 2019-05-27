@@ -33,7 +33,9 @@ struct clk_regmap aud_##_name = {					\
 	.hw.init = &(struct clk_init_data) {				\
 		.name = "aud_"#_name,					\
 		.ops = &clk_regmap_gate_ops,				\
-		.parent_names = (const char *[]){ _pname },		\
+		.parent_data = &(const struct clk_parent_data) {	\
+			.name = _pname, .index = -1,			\
+		},							\
 		.num_parents = 1,					\
 		.flags = CLK_DUTY_CYCLE_PARENT | (_iflags),		\
 	},								\
@@ -50,7 +52,7 @@ struct clk_regmap aud_##_name = {					\
 	.hw.init = &(struct clk_init_data){				\
 		.name = "aud_"#_name,					\
 		.ops = &clk_regmap_mux_ops,				\
-		.parent_names = (_pnames),				\
+		.parent_data = _pnames,					\
 		.num_parents = ARRAY_SIZE(_pnames),			\
 		.flags = CLK_DUTY_CYCLE_PARENT | (_iflags),		\
 	},								\
@@ -67,7 +69,9 @@ struct clk_regmap aud_##_name = {					\
 	.hw.init = &(struct clk_init_data){				\
 		.name = "aud_"#_name,					\
 		.ops = &clk_regmap_divider_ops,				\
-		.parent_names = (const char *[]) { _pname },		\
+		.parent_data = &(const struct clk_parent_data) {	\
+			.name = _pname, .index = -1,			\
+		},							\
 		.num_parents = 1,					\
 		.flags = (_iflags),					\
 	},								\
@@ -100,14 +104,20 @@ static AUD_PCLK_GATE(power_detect, 19);
 static AUD_PCLK_GATE(spdifout_b,   21);
 
 /* Audio Master Clocks */
-static const char * const mst_mux_parent_names[] = {
-	"aud_mst_in0", "aud_mst_in1", "aud_mst_in2", "aud_mst_in3",
-	"aud_mst_in4", "aud_mst_in5", "aud_mst_in6", "aud_mst_in7",
+static const struct clk_parent_data mst_mux_parent_data[] = {
+	{ .name = "aud_mst_in0", .index = -1 },
+	{ .name = "aud_mst_in1", .index = -1 },
+	{ .name = "aud_mst_in2", .index = -1 },
+	{ .name = "aud_mst_in3", .index = -1 },
+	{ .name = "aud_mst_in4", .index = -1 },
+	{ .name = "aud_mst_in5", .index = -1 },
+	{ .name = "aud_mst_in6", .index = -1 },
+	{ .name = "aud_mst_in7", .index = -1 },
 };
 
 #define AUD_MST_MUX(_name, _reg, _flag)				\
 	AUD_MUX(_name##_sel, _reg, 0x7, 24, _flag,		\
-		mst_mux_parent_names, CLK_SET_RATE_PARENT)
+		mst_mux_parent_data, CLK_SET_RATE_PARENT)
 
 #define AUD_MST_MCLK_MUX(_name, _reg)				\
 	AUD_MST_MUX(_name, _reg, CLK_MUX_ROUND_CLOSEST)
@@ -195,7 +205,9 @@ struct clk_regmap aud_##_name = {					\
 	.hw.init = &(struct clk_init_data) {				\
 		.name = "aud_"#_name,					\
 		.ops = &meson_sclk_div_ops,				\
-		.parent_names = (const char *[]) { _pname },		\
+		.parent_data = &(const struct clk_parent_data) {	\
+			.name = _pname, .index = -1,			\
+		},							\
 		.num_parents = 1,					\
 		.flags = (_iflags),					\
 	},								\
@@ -247,7 +259,9 @@ struct clk_regmap aud_##_name = {					\
 	.hw.init = &(struct clk_init_data) {				\
 		.name = "aud_"#_name,					\
 		.ops = &meson_clk_triphase_ops,				\
-		.parent_names = (const char *[]) { _pname },		\
+		.parent_data = &(const struct clk_parent_data) {	\
+			.name = _pname, .index = -1,			\
+		},							\
 		.num_parents = 1,					\
 		.flags = CLK_DUTY_CYCLE_PARENT | (_iflags),		\
 	},								\
@@ -286,19 +300,29 @@ static AUD_MST_LRCLK(d, AUDIO_MST_D_SCLK_CTRL1);
 static AUD_MST_LRCLK(e, AUDIO_MST_E_SCLK_CTRL1);
 static AUD_MST_LRCLK(f, AUDIO_MST_F_SCLK_CTRL1);
 
-static const char * const tdm_sclk_parent_names[] = {
-	"aud_mst_a_sclk", "aud_mst_b_sclk", "aud_mst_c_sclk",
-	"aud_mst_d_sclk", "aud_mst_e_sclk", "aud_mst_f_sclk",
-	"aud_slv_sclk0", "aud_slv_sclk1", "aud_slv_sclk2",
-	"aud_slv_sclk3", "aud_slv_sclk4", "aud_slv_sclk5",
-	"aud_slv_sclk6", "aud_slv_sclk7", "aud_slv_sclk8",
-	"aud_slv_sclk9"
+static const struct clk_parent_data tdm_sclk_parent_data[] = {
+	{ .name = "aud_mst_a_sclk", .index = -1 },
+	{ .name = "aud_mst_b_sclk", .index = -1 },
+	{ .name = "aud_mst_c_sclk", .index = -1 },
+	{ .name = "aud_mst_d_sclk", .index = -1 },
+	{ .name = "aud_mst_e_sclk", .index = -1 },
+	{ .name = "aud_mst_f_sclk", .index = -1 },
+	{ .name = "aud_slv_sclk0", .index = -1 },
+	{ .name = "aud_slv_sclk1", .index = -1 },
+	{ .name = "aud_slv_sclk2", .index = -1 },
+	{ .name = "aud_slv_sclk3", .index = -1 },
+	{ .name = "aud_slv_sclk4", .index = -1 },
+	{ .name = "aud_slv_sclk5", .index = -1 },
+	{ .name = "aud_slv_sclk6", .index = -1 },
+	{ .name = "aud_slv_sclk7", .index = -1 },
+	{ .name = "aud_slv_sclk8", .index = -1 },
+	{ .name = "aud_slv_sclk9", .index = -1 },
 };
 
 #define AUD_TDM_SCLK_MUX(_name, _reg)				\
 	AUD_MUX(tdm##_name##_sclk_sel, _reg, 0xf, 24,		\
 		    CLK_MUX_ROUND_CLOSEST,			\
-		    tdm_sclk_parent_names, 0)
+		    tdm_sclk_parent_data, 0)
 
 static AUD_TDM_SCLK_MUX(in_a,  AUDIO_CLK_TDMIN_A_CTRL);
 static AUD_TDM_SCLK_MUX(in_b,  AUDIO_CLK_TDMIN_B_CTRL);
@@ -344,8 +368,10 @@ static AUD_TDM_SCLK_POST_EN(out_c, AUDIO_CLK_TDMOUT_C_CTRL);
 	.hw.init = &(struct clk_init_data) {				\
 		.name = "aud_tdm"#_name"_sclk",				\
 		.ops = &meson_clk_phase_ops,				\
-		.parent_names = (const char *[])			\
-		{ "aud_tdm"#_name"_sclk_post_en" },			\
+		.parent_data = &(const struct clk_parent_data) {	\
+			.name = "aud_tdm"#_name"_sclk_post_en",		\
+			.index = -1,					\
+		},							\
 		.num_parents = 1,					\
 		.flags = CLK_DUTY_CYCLE_PARENT | CLK_SET_RATE_PARENT,	\
 	},								\
@@ -359,19 +385,29 @@ static AUD_TDM_SCLK(out_a, AUDIO_CLK_TDMOUT_A_CTRL);
 static AUD_TDM_SCLK(out_b, AUDIO_CLK_TDMOUT_B_CTRL);
 static AUD_TDM_SCLK(out_c, AUDIO_CLK_TDMOUT_C_CTRL);
 
-static const char * const tdm_lrclk_parent_names[] = {
-	"aud_mst_a_lrclk", "aud_mst_b_lrclk", "aud_mst_c_lrclk",
-	"aud_mst_d_lrclk", "aud_mst_e_lrclk", "aud_mst_f_lrclk",
-	"aud_slv_lrclk0", "aud_slv_lrclk1", "aud_slv_lrclk2",
-	"aud_slv_lrclk3", "aud_slv_lrclk4", "aud_slv_lrclk5",
-	"aud_slv_lrclk6", "aud_slv_lrclk7", "aud_slv_lrclk8",
-	"aud_slv_lrclk9"
+static const struct clk_parent_data tdm_lrclk_parent_data[] = {
+	{ .name = "aud_mst_a_lrclk", .index = -1 },
+	{ .name = "aud_mst_b_lrclk", .index = -1 },
+	{ .name = "aud_mst_c_lrclk", .index = -1 },
+	{ .name = "aud_mst_d_lrclk", .index = -1 },
+	{ .name = "aud_mst_e_lrclk", .index = -1 },
+	{ .name = "aud_mst_f_lrclk", .index = -1 },
+	{ .name = "aud_slv_lrclk0", .index = -1 },
+	{ .name = "aud_slv_lrclk1", .index = -1 },
+	{ .name = "aud_slv_lrclk2", .index = -1 },
+	{ .name = "aud_slv_lrclk3", .index = -1 },
+	{ .name = "aud_slv_lrclk4", .index = -1 },
+	{ .name = "aud_slv_lrclk5", .index = -1 },
+	{ .name = "aud_slv_lrclk6", .index = -1 },
+	{ .name = "aud_slv_lrclk7", .index = -1 },
+	{ .name = "aud_slv_lrclk8", .index = -1 },
+	{ .name = "aud_slv_lrclk9", .index = -1 },
 };
 
 #define AUD_TDM_LRLCK(_name, _reg)		       \
 	AUD_MUX(tdm##_name##_lrclk, _reg, 0xf, 20,     \
 		CLK_MUX_ROUND_CLOSEST,		       \
-		tdm_lrclk_parent_names, 0)
+		tdm_lrclk_parent_data, 0)
 
 static AUD_TDM_LRLCK(in_a,  AUDIO_CLK_TDMIN_A_CTRL);
 static AUD_TDM_LRLCK(in_b,  AUDIO_CLK_TDMIN_B_CTRL);
@@ -386,39 +422,51 @@ static AUD_TDM_LRLCK(out_c, AUDIO_CLK_TDMOUT_C_CTRL);
 	AUD_MUX(tdm_##_name, _reg, 0x7, _shift, 0, _parents,	\
 		CLK_SET_RATE_NO_REPARENT)
 
-static const char * const mclk_pad_ctrl_parent_names[] = {
-	"aud_mst_a_mclk", "aud_mst_b_mclk", "aud_mst_c_mclk",
-	"aud_mst_d_mclk", "aud_mst_e_mclk", "aud_mst_f_mclk",
+static const struct clk_parent_data mclk_pad_ctrl_parent_data[] = {
+	{ .name = "aud_mst_a_mclk", .index = -1 },
+	{ .name = "aud_mst_b_mclk", .index = -1 },
+	{ .name = "aud_mst_c_mclk", .index = -1 },
+	{ .name = "aud_mst_d_mclk", .index = -1 },
+	{ .name = "aud_mst_e_mclk", .index = -1 },
+	{ .name = "aud_mst_f_mclk", .index = -1 },
 };
 
 static AUD_TDM_PAD_CTRL(mclk_pad_0, AUDIO_MST_PAD_CTRL0, 0,
-			mclk_pad_ctrl_parent_names);
+			mclk_pad_ctrl_parent_data);
 static AUD_TDM_PAD_CTRL(mclk_pad_1, AUDIO_MST_PAD_CTRL0, 4,
-			mclk_pad_ctrl_parent_names);
+			mclk_pad_ctrl_parent_data);
 
-static const char * const lrclk_pad_ctrl_parent_names[] = {
-	"aud_mst_a_lrclk", "aud_mst_b_lrclk", "aud_mst_c_lrclk",
-	"aud_mst_d_lrclk", "aud_mst_e_lrclk", "aud_mst_f_lrclk",
+static const struct clk_parent_data lrclk_pad_ctrl_parent_data[] = {
+	{ .name = "aud_mst_a_lrclk", .index = -1 },
+	{ .name = "aud_mst_b_lrclk", .index = -1 },
+	{ .name = "aud_mst_c_lrclk", .index = -1 },
+	{ .name = "aud_mst_d_lrclk", .index = -1 },
+	{ .name = "aud_mst_e_lrclk", .index = -1 },
+	{ .name = "aud_mst_f_lrclk", .index = -1 },
 };
 
 static AUD_TDM_PAD_CTRL(lrclk_pad_0, AUDIO_MST_PAD_CTRL1, 16,
-			lrclk_pad_ctrl_parent_names);
+			lrclk_pad_ctrl_parent_data);
 static AUD_TDM_PAD_CTRL(lrclk_pad_1, AUDIO_MST_PAD_CTRL1, 20,
-			lrclk_pad_ctrl_parent_names);
+			lrclk_pad_ctrl_parent_data);
 static AUD_TDM_PAD_CTRL(lrclk_pad_2, AUDIO_MST_PAD_CTRL1, 24,
-			lrclk_pad_ctrl_parent_names);
+			lrclk_pad_ctrl_parent_data);
 
-static const char * const sclk_pad_ctrl_parent_names[] = {
-	"aud_mst_a_sclk", "aud_mst_b_sclk", "aud_mst_c_sclk",
-	"aud_mst_d_sclk", "aud_mst_e_sclk", "aud_mst_f_sclk",
+static const struct clk_parent_data sclk_pad_ctrl_parent_data[] = {
+	{ .name = "aud_mst_a_sclk", .index = -1 },
+	{ .name = "aud_mst_b_sclk", .index = -1 },
+	{ .name = "aud_mst_c_sclk", .index = -1 },
+	{ .name = "aud_mst_d_sclk", .index = -1 },
+	{ .name = "aud_mst_e_sclk", .index = -1 },
+	{ .name = "aud_mst_f_sclk", .index = -1 },
 };
 
 static AUD_TDM_PAD_CTRL(sclk_pad_0, AUDIO_MST_PAD_CTRL1, 0,
-			sclk_pad_ctrl_parent_names);
+			sclk_pad_ctrl_parent_data);
 static AUD_TDM_PAD_CTRL(sclk_pad_1, AUDIO_MST_PAD_CTRL1, 4,
-			sclk_pad_ctrl_parent_names);
+			sclk_pad_ctrl_parent_data);
 static AUD_TDM_PAD_CTRL(sclk_pad_2, AUDIO_MST_PAD_CTRL1, 8,
-			sclk_pad_ctrl_parent_names);
+			sclk_pad_ctrl_parent_data);
 
 /*
  * Array of all clocks provided by this provider
