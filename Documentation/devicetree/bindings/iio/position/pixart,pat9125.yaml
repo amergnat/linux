@@ -1,0 +1,40 @@
+# SPDX-License-Identifier: GPL-2.0
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/iio/accel/pixart,pat9125.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: PixArt Imaging PAT9125 Optical Tracking Miniature Chip
+
+maintainers:
+  - Alexandre Mergnat <amergnat@baylibre.com>
+
+description: |
+  PixArt Imaging PAT9125 Optical Tracking Miniature Chip device driver that
+  supports I2C interfaces
+    http://www.pixart.com/products-detail/72/PAT9125EL-TKIT___TKMT
+
+properties:
+  compatible:
+    enum:
+      - pixart,pat9125
+
+  reg:
+    maxItems: 1
+
+  interrupts:
+    maxItems: 1
+
+required:
+  - compatible
+  - reg
+  - interrupts
+
+examples:
+  - |
+        pat9125@75 {
+        	compatible = "pixart,pat9125";
+        	reg = <0x75>;
+        	interrupt-parent = <&gpio3>;
+        	interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
+        };
